@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Play, Clapperboard, Film, Camera, Scissors, Award, Sparkles, Layers, Sliders, Volume2, Eye } from 'lucide-react';
 import { getCssAspectRatio, isVerticalAspectRatio } from '../../utils/mediaUtils';
+import ColorGradeComparison from './ColorGradeComparison';
+import soundFX from '../../utils/soundEffects';
 
 /* 1. Authentic Tactile Polaroid Card Component */
 function PolaroidCard({ proj, onSelectProject, index }) {
@@ -28,6 +30,11 @@ function PolaroidCard({ proj, onSelectProject, index }) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
     }
+  };
+
+  const handleOpen = () => {
+    soundFX.playShutterClick();
+    onSelectProject(proj);
   };
 
   return (
@@ -76,7 +83,7 @@ function PolaroidCard({ proj, onSelectProject, index }) {
       }}>
         {/* Dynamic Photo Frame Window inside Polaroid (Adapts to Vertical/Horizontal with Zero Black Bars) */}
         <div
-          onClick={() => onSelectProject(proj)}
+          onClick={handleOpen}
           style={{
             width: '100%',
             aspectRatio: isVertical ? '4 / 5' : '16 / 10',
@@ -249,7 +256,7 @@ function PolaroidCard({ proj, onSelectProject, index }) {
 
           {/* Dark Ink Title */}
           <h3
-            onClick={() => onSelectProject(proj)}
+            onClick={handleOpen}
             style={{
               fontFamily: 'var(--font-serif)',
               fontSize: '1.75rem',
@@ -315,7 +322,7 @@ function PolaroidCard({ proj, onSelectProject, index }) {
             borderTop: '1px solid #eae2d3'
           }}>
             <button
-              onClick={() => onSelectProject(proj)}
+              onClick={handleOpen}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -860,6 +867,9 @@ export default function FilmShowcase({ projects, gear, showreel, onSelectProject
             />
           </div>
         )}
+
+        {/* Interactive DaVinci Resolve Color Grading Studio Wipe */}
+        <ColorGradeComparison />
 
         {/* Director's Camera Package & Flight Case Rig */}
         <div id="skills-gear" style={{ paddingTop: '2rem' }}>

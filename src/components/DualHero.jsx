@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Play, Compass, Terminal, Film, Sliders, Ratio, Check, Clock, Cpu, Eye } from 'lucide-react';
 
+import soundFX from '../utils/soundEffects';
+
 export default function DualHero({ activeMode, onToggleMode, personal, onOpenShowreel }) {
   const isDev = activeMode === 'dev';
 
@@ -28,6 +30,7 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
     const trimmed = cmd.trim().toLowerCase();
     if (!trimmed) return;
 
+    soundFX.playKeyBeep();
     const newHistory = [...terminalHistory, { type: 'user', text: `sunny@terminal:~$ ${cmd}` }];
 
     if (trimmed === 'clear') {
@@ -37,22 +40,44 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
     } else if (trimmed === 'skills' || trimmed === 'stack') {
       newHistory.push({
         type: 'response',
-        text: 'CORE ARCHITECTURE:\n  • Frontend: React, Next.js, TypeScript, Three.js / WebGL, Tailwind\n  • Backend: Node.js, FastAPI (Python), Redis Streams, PostgreSQL\n  • Systems: Docker, WebSockets, Event-driven Queues, AWS S3'
+        text: 'CORE ARCHITECTURE:\n  • Frontend: React, Next.js, TypeScript, Three.js / WebGL, Tailwind CSS\n  • Backend: Node.js, FastAPI (Python), PostgreSQL (Neon Serverless), Redis\n  • AI & Systems: LLM / RAG Architectures, Autonomous Agents, OCR Extraction, Docker'
       });
     } else if (trimmed === 'projects' || trimmed === 'repos') {
       newHistory.push({
         type: 'response',
-        text: 'FEATURED REPOSITORIES:\n  [1] Lumina Studio Engine — WebGL Color & Lighting Suite\n  [2] PulseFlow API — Distributed Asynchronous Task Queue\n  [3] Chronicle CMS — Real-Time Collaborative Headless Studio'
+        text: 'FEATURED REPOSITORIES:\n  [1] NERCORM Fund Tracker — Government Financial Oversight System (Next.js + Postgres)\n  [2] TechBaton AI Platform — Brand UI, Logo Identity & RAG Agent Pipelines\n  [3] Intelligent Agent Systems — Autonomous Multi-Step Tool Calling & Knowledge Workflows'
+      });
+    } else if (trimmed === 'resume' || trimmed === 'cv') {
+      newHistory.push({
+        type: 'response',
+        text: `ACADEMIC & INDUSTRY PROFILE:\n  • Name: ${personal.name}\n  • Degree: ${personal.education.degree} (${personal.education.period})\n  • Institution: ${personal.education.institution}\n  • Focus: Solo End-to-End Shipping, AI Engineering, Cinematography\n  • Status: ${personal.status}`
+      });
+    } else if (trimmed === 'contact' || trimmed === 'email') {
+      newHistory.push({
+        type: 'response',
+        text: `TRANSMISSION CHANNELS:\n  • Email: ${personal.socials.email}\n  • LinkedIn: ${personal.socials.linkedin}\n  • Drive Reel: ${personal.socials.googleDrivePortfolio}\n  Jump to bottom of page for direct message transmission.`
+      });
+    } else if (trimmed === 'ping') {
+      const simulatedPing = (Math.random() * 8 + 3).toFixed(1);
+      newHistory.push({
+        type: 'response',
+        text: `PING vercel-edge.regional (127.0.0.1): 56 data bytes\n64 bytes from edge: icmp_seq=1 ttl=116 time=${simulatedPing} ms\n--- edge ping statistics ---\n1 packets transmitted, 1 received, 0% packet loss, rtt = ${simulatedPing}ms`
+      });
+    } else if (trimmed === 'film' || trimmed === 'switch') {
+      onToggleMode('film');
+      newHistory.push({
+        type: 'response',
+        text: 'Switching environment to FILMMAKER / ANALOG ARCHIVE MODE...'
       });
     } else if (trimmed === 'benchmark') {
       newHistory.push({
         type: 'response',
-        text: 'RUNNING CLIENT TELEMETRY BENCHMARK...\n  ✓ Shader Pipeline: 60.0 FPS stable\n  ✓ Queue Latency: 3.4ms\n  ✓ Memory Heap: 24.8 MB\n  RESULT: Optimal'
+        text: 'RUNNING CLIENT TELEMETRY BENCHMARK...\n  ✓ Shader Pipeline: 60.0 FPS stable\n  ✓ Database Latency: Neon Serverless OK\n  ✓ Memory Heap: 24.8 MB\n  RESULT: Optimal 100%'
       });
     } else if (trimmed === 'help') {
       newHistory.push({
         type: 'response',
-        text: 'AVAILABLE COMMANDS:\n  skills     - View engineering stack & systems radar\n  projects   - Inspect featured software repositories\n  benchmark  - Execute live performance diagnostics\n  clear      - Clear the console buffer'
+        text: 'AVAILABLE COMMANDS:\n  skills     - View engineering stack & systems radar\n  projects   - Inspect featured software repositories\n  resume     - View academic credentials & engineering focus\n  ping       - Execute network latency telemetry diagnostic\n  contact    - Retrieve transmission channels & email\n  film       - Toggle directly to Filmmaker mode\n  benchmark  - Execute live performance diagnostics\n  clear      - Clear the console buffer'
       });
     } else {
       newHistory.push({
@@ -284,7 +309,7 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
               <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-faint)', alignSelf: 'center', marginRight: '0.25rem' }}>
                 Quick Run:
               </span>
-              {['skills', 'projects', 'benchmark', 'clear'].map((cmd) => (
+              {['skills', 'projects', 'resume', 'ping', 'benchmark', 'clear'].map((cmd) => (
                 <button
                   key={cmd}
                   onClick={() => handleCommand(cmd)}

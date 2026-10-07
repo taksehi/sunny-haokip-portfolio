@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Clapperboard, Send, Compass, Menu, X } from 'lucide-react';
+import { Terminal, Clapperboard, Send, Compass, Menu, X, Volume2, VolumeX } from 'lucide-react';
+import soundFX from '../utils/soundEffects';
 
 export default function Navbar({ activeMode, onToggleMode, personal }) {
   const isDev = activeMode === 'dev';
   const [isVisible, setIsVisible] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sfxActive, setSfxActive] = useState(false);
+
+  useEffect(() => {
+    setSfxActive(soundFX.isEnabled());
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -188,6 +194,28 @@ export default function Navbar({ activeMode, onToggleMode, personal }) {
           >
             About
           </a>
+
+          {/* Tactile Audio SFX Toggle */}
+          <button
+            type="button"
+            onClick={() => setSfxActive(soundFX.toggle())}
+            title={sfxActive ? 'Mute Tactile Audio FX' : 'Enable Tactile Audio FX (Mechanical Clicks & Shutter)'}
+            style={{
+              background: sfxActive ? (isDev ? 'rgba(0, 230, 153, 0.1)' : 'rgba(245, 158, 11, 0.15)') : 'transparent',
+              border: `1px solid ${sfxActive ? (isDev ? 'var(--accent-compass)' : 'var(--action-primary)') : 'var(--border-hairline)'}`,
+              borderRadius: '50%',
+              width: '2.1rem',
+              height: '2.1rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: sfxActive ? (isDev ? 'var(--accent-compass)' : 'var(--action-primary)') : 'var(--text-faint)',
+              cursor: 'pointer',
+              transition: 'all var(--transition-fast)'
+            }}
+          >
+            {sfxActive ? <Volume2 size={13} /> : <VolumeX size={13} />}
+          </button>
 
           <a
             href="#contact"

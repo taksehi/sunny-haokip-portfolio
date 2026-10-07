@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import PixelArtLanding from './components/gateway/PixelArtLanding';
 import DisciplineSelector from './components/gateway/DisciplineSelector';
@@ -8,8 +8,11 @@ import FilmShowcase from './components/film/FilmShowcase';
 import AboutSection from './components/shared/AboutSection';
 import ContactSection from './components/shared/ContactSection';
 import Footer from './components/shared/Footer';
-import ProjectModal from './components/shared/ProjectModal';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
+import { useGamepadNavigation } from './hooks/useGamepadNavigation';
+
+// Dynamic code splitting for heavy modal components
+const ProjectModal = lazy(() => import('./components/shared/ProjectModal'));
 
 function PortfolioApp() {
   const {
@@ -29,6 +32,13 @@ function PortfolioApp() {
     openShowreel,
     closeModal
   } = usePortfolio();
+
+  const { gamepadConnected } = useGamepadNavigation({
+    onToggleMode: setActiveMode,
+    activeMode,
+    closeModal,
+    isModalOpen
+  });
 
   const handleSelectModeAndScroll = (mode) => {
     setActiveMode(mode);
@@ -117,11 +127,37 @@ function PortfolioApp() {
 
       {/* Unified Case Study & Video Player Modal */}
       {isModalOpen && (
-        <ProjectModal
-          project={selectedProject}
-          type={modalType}
-          onClose={closeModal}
-        />
+        <Suspense fallback={null}>
+          <ProjectModal
+            project={selectedProject}
+            type={modalType}
+            onClose={closeModal}
+          />
+        </Suspense>
+      )}
+
+      {/* Smart TV / Console Gamepad HUD Badge */}
+      {gamepadConnected && (
+        <div style={{
+          position: 'fixed',
+          bottom: '1.25rem',
+          right: '1.25rem',
+          zIndex: 90,
+          background: 'rgba(10, 10, 10, 0.92)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid var(--action-primary)',
+          color: '#faf8f5',
+          borderRadius: '9999px',
+          padding: '0.45rem 1rem',
+          fontSize: '0.74rem',
+          fontFamily: 'var(--font-mono)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.6)'
+        }}>
+          <span>🎮 TV CONTROLLER: D-Pad Scroll • (B) Close • (LB/RB) Mode</span>
+        </div>
       )}
     </div>
   );
