@@ -3,6 +3,8 @@ import { ArrowUp, Database } from 'lucide-react';
 import NeonConnectModal from './NeonConnectModal';
 
 export default function Footer({ personal, activeMode }) {
+  const [isNeonModalOpen, setIsNeonModalOpen] = useState(false);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
