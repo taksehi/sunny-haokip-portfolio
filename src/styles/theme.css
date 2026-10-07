@@ -1,0 +1,85 @@
+/**
+ * REFERO & CREATIVE ANALOG DESIGN SYSTEMS:
+ * Developer: Hyperstudio (Obsidian blueprint, hairline precision, weight 400, Compass Gold)
+ * Filmmaker: Director's Darkroom & Polaroid Archive (Tungsten Gold #f59e0b, 35mm Celluloid, Matte Paper #fdfbf7)
+ */
+
+:root {
+  /* Common Font Families */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'EB Garamond', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* HYPERSTUDIO TOKENS (Default / Dev Mode) */
+  --bg-canvas: #101010;        /* Matte Obsidian */
+  --bg-surface: #141414;       /* Slight elevation */
+  --bg-deep: #080808;          /* Carbon */
+  --border-hairline: #212121;  /* 1px Graphite border */
+  --border-card: #282828;
+  --border-subtle: #212121;
+  --border-focus: #474747;
+
+  --text-primary: #f3f3f3;     /* Chalk */
+  --text-muted: #9c9c9c;       /* Smoke */
+  --text-faint: #5a5a5a;       /* Ash */
+
+  --action-primary: #ffffff;   /* Signal White pill */
+  --action-text: #080808;      /* Inverted dark text */
+  --accent-compass: #6f6759;   /* Compass Gold */
+  --accent-indicator: #6f6759;
+  --accent-tag-bg: rgba(255, 255, 255, 0.04);
+  --accent-tag-border: #282828;
+
+  --font-headline: var(--font-sans);
+  --tracking-headline: -0.011em;
+  --tracking-code: -0.037em;
+  --weight-headline: 400;
+
+  --radius-card: 12px;
+  --radius-media: 10px;
+  --radius-button: 9999px;     /* Pill */
+  --radius-input: 10px;
+
+  --shadow-none: none;
+  --transition-fast: 0.16s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* CREATIVE ANALOG DARKROOM & POLAROID TOKENS (Film Mode) */
+body.mode-film {
+  --bg-canvas: #0b0a09;        /* Deep Darkroom Noir with Warm Amber undertone */
+  --bg-surface: #131210;       /* Dark Studio Slate */
+  --bg-deep: #060505;
+  --border-hairline: #24211d;  /* Warm hairline border */
+  --border-card: #2e2a24;
+  --border-subtle: #24211d;
+  --border-focus: #d97706;     /* Warm Amber focus */
+
+  --text-primary: #faf8f5;     /* Warm Ivory */
+  --text-muted: #bbb4a8;       /* Warm Vintage Mist */
+  --text-faint: #787166;       /* Sepia Ash */
+
+  /* Warm Tungsten Gold / Vintage Amber (Replaces cold blue) */
+  --action-primary: #f59e0b;   /* Warm Cinema Tungsten Gold */
+  --action-text: #0b0a09;      /* Dark text on amber */
+  --accent-compass: #f59e0b;
+  --accent-indicator: #f59e0b;
+  --accent-tag-bg: rgba(245, 158, 11, 0.08);
+  --accent-tag-border: rgba(245, 158, 11, 0.25);
+
+  /* Tactile Polaroid & 35mm Specific Tokens */
+  --polaroid-bg: #fbf9f4;      /* Cream matte photo paper */
+  --polaroid-border: #eee7db;
+  --polaroid-text: #1c1917;    /* Dark ink on polaroid paper */
+  --polaroid-muted: #57534e;
+  --tape-color: rgba(254, 243, 199, 0.45); /* Masking tape */
+
+  --font-headline: var(--font-serif);
+  --tracking-headline: -0.018em;
+  --weight-headline: 400;
+
+  --radius-card: 16px;
+  --radius-media: 6px;         /* Crisp film crop */
+  --radius-button: 9999px;
+  --radius-input: 12px;
+}
