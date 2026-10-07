@@ -62,6 +62,10 @@ export async function seedDatabase() {
         embed_url = EXCLUDED.embed_url,
         aspect_ratio = EXCLUDED.aspect_ratio,
         duration = EXCLUDED.duration,
+        role = EXCLUDED.role,
+        client_name = EXCLUDED.client_name,
+        year = EXCLUDED.year,
+        gear = EXCLUDED.gear,
         awards = EXCLUDED.awards;
     `;
     console.log(`  + Film Project: ${p.title}`);

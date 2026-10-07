@@ -32,6 +32,7 @@ function PolaroidCard({ proj, onSelectProject, index }) {
 
   return (
     <div
+      className="polaroid-rotatable"
       style={{
         position: 'relative',
         transform: isHovered
@@ -88,7 +89,7 @@ function PolaroidCard({ proj, onSelectProject, index }) {
             marginBottom: '1.25rem'
           }}
         >
-          {/* Static Still Poster */}
+          {/* Static Still Video Frame Thumbnail */}
           <img
             src={proj.posterImage}
             alt={proj.title}
@@ -96,35 +97,37 @@ function PolaroidCard({ proj, onSelectProject, index }) {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              opacity: isHovered ? 0 : 1,
+              opacity: (isHovered && proj.previewVideo) ? 0 : 1,
               transition: 'opacity 0.4s ease, transform 0.5s ease',
-              transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+              transform: isHovered ? 'scale(1.06)' : 'scale(1)',
               filter: 'contrast(1.05) saturate(1.08)'
             }}
           />
 
-          {/* Looping Silent Video on Hover with Dynamic Metadata & Full Cover Fit */}
-          <video
-            ref={videoRef}
-            src={proj.previewVideo}
-            loop
-            muted
-            playsInline
-            onLoadedMetadata={(e) => {
-              if (e.target.videoHeight && e.target.videoWidth) {
-                setDetectedVertical(e.target.videoHeight > e.target.videoWidth);
-              }
-            }}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: isHovered ? 1 : 0,
-              transition: 'opacity 0.4s ease'
-            }}
-          />
+          {/* Looping Silent Video on Hover only if specific previewVideo provided */}
+          {proj.previewVideo && (
+            <video
+              ref={videoRef}
+              src={proj.previewVideo}
+              loop
+              muted
+              playsInline
+              onLoadedMetadata={(e) => {
+                if (e.target.videoHeight && e.target.videoWidth) {
+                  setDetectedVertical(e.target.videoHeight > e.target.videoWidth);
+                }
+              }}
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: isHovered ? 1 : 0,
+                transition: 'opacity 0.4s ease'
+              }}
+            />
+          )}
 
           {/* Analog Film Stock Stamp (Top Left) */}
           <div style={{
@@ -365,7 +368,7 @@ function CelluloidFilmStrip({ projects, onSelectProject }) {
       background: '#060504',
       border: '1px solid #2e2820',
       borderRadius: '12px',
-      padding: '2.5rem 1.5rem',
+      padding: 'clamp(1.5rem, 3.5vw, 2.5rem) clamp(1rem, 2.5vw, 1.5rem)',
       position: 'relative',
       overflow: 'hidden',
       boxShadow: 'inset 0 0 40px rgba(0, 0, 0, 0.9)'
@@ -374,9 +377,12 @@ function CelluloidFilmStrip({ projects, onSelectProject }) {
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
-        padding: '0 0.5rem 1.5rem',
+        padding: '0 0.25rem 1.25rem',
         borderBottom: '1px dashed #3a3227',
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+        overflow: 'hidden',
+        flexWrap: 'nowrap',
+        gap: '6px'
       }}>
         {Array.from({ length: 32 }).map((_, i) => (
           <div
@@ -386,7 +392,8 @@ function CelluloidFilmStrip({ projects, onSelectProject }) {
               height: '18px',
               borderRadius: '2px',
               background: '#13110d',
-              border: '1px solid #2e2820'
+              border: '1px solid #2e2820',
+              flexShrink: 0
             }}
           />
         ))}
@@ -395,8 +402,8 @@ function CelluloidFilmStrip({ projects, onSelectProject }) {
       {/* Film Strip Frames */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '2rem'
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+        gap: '1.5rem'
       }}>
         {projects.map((proj, idx) => (
           <div
@@ -494,9 +501,12 @@ function CelluloidFilmStrip({ projects, onSelectProject }) {
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
-        padding: '1.5rem 0.5rem 0',
+        padding: '1.25rem 0.25rem 0',
         borderTop: '1px dashed #3a3227',
-        marginTop: '2rem'
+        marginTop: '2rem',
+        overflow: 'hidden',
+        flexWrap: 'nowrap',
+        gap: '6px'
       }}>
         {Array.from({ length: 32 }).map((_, i) => (
           <div
@@ -506,7 +516,8 @@ function CelluloidFilmStrip({ projects, onSelectProject }) {
               height: '18px',
               borderRadius: '2px',
               background: '#13110d',
-              border: '1px solid #2e2820'
+              border: '1px solid #2e2820',
+              flexShrink: 0
             }}
           />
         ))}
@@ -524,7 +535,7 @@ function DirectorClapperboard({ showreel, onOpenShowreel }) {
         background: 'linear-gradient(135deg, #181512 0%, #0d0c0a 100%)',
         border: '1px solid #383126',
         borderRadius: '16px',
-        padding: '2.5rem 2rem',
+        padding: 'clamp(1.5rem, 3.5vw, 2.5rem) clamp(1.2rem, 3vw, 2rem)',
         marginBottom: '4rem',
         cursor: 'pointer',
         position: 'relative',
@@ -615,7 +626,7 @@ function DirectorClapperboard({ showreel, onOpenShowreel }) {
           {/* Chalk Slate Production Table */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 100px), 1fr))',
             gap: '0.75rem',
             background: '#090807',
             border: '1px solid #2b251d',
@@ -630,15 +641,15 @@ function DirectorClapperboard({ showreel, onOpenShowreel }) {
             </div>
             <div>
               <div style={{ color: '#787166' }}>SCENE</div>
-              <div style={{ color: '#faf8f5', fontWeight: 600 }}>04 // TOKYO</div>
+              <div style={{ color: '#faf8f5', fontWeight: 600 }}>01 // JIBHI</div>
             </div>
             <div>
               <div style={{ color: '#787166' }}>TAKE</div>
-              <div style={{ color: '#faf8f5', fontWeight: 600 }}>02</div>
+              <div style={{ color: '#faf8f5', fontWeight: 600 }}>01</div>
             </div>
             <div>
               <div style={{ color: '#787166' }}>DIRECTOR</div>
-              <div style={{ color: '#f59e0b', fontWeight: 600 }}>RIVERA</div>
+              <div style={{ color: '#f59e0b', fontWeight: 600 }}>HAOKIP</div>
             </div>
           </div>
         </div>

@@ -118,8 +118,9 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
 
           <div style={{
             display: 'flex',
+            flexWrap: 'wrap',
             alignItems: 'center',
-            gap: '1.5rem',
+            gap: '0.6rem 1.25rem',
             fontSize: '0.78rem',
             color: 'var(--text-faint)',
             fontFamily: 'var(--font-mono)',
@@ -386,7 +387,7 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
               fontSize: '0.78rem'
             }}>
               {/* Aspect Ratio Selector */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.45rem' }}>
                 <span style={{ color: 'var(--text-faint)' }}>FRAME FORMAT:</span>
                 <button
                   onClick={() => handleSetAspect('2.39 / 1', '2.39:1 Anamorphic')}
@@ -436,7 +437,7 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
               </div>
 
               {/* Color Grade LUT Toggle */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.45rem' }}>
                 <span style={{ color: 'var(--text-faint)' }}>COLOR GRADE:</span>
                 <button
                   onClick={() => setActiveLut('graded')}
@@ -486,13 +487,10 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
                 transition: 'aspect-ratio var(--transition-smooth)'
               }}
             >
-              {/* Silent Looping HD Footage with Dynamic LUT */}
-              <video
-                src="https://assets.mixkit.co/videos/preview/mixkit-tokyo-traffic-at-night-4228-large.mp4"
-                loop
-                autoPlay
-                muted
-                playsInline
+              {/* Authentic Film Frame Thumbnail with Dynamic LUT Simulation */}
+              <img
+                src="https://drive.google.com/thumbnail?id=1h4_xclJ6z1_VdnflUMeHliRhlXoGSatM&sz=w1200"
+                alt="Sunny Haokip - Welcome to Jibhi Film Still"
                 className={activeLut === 'graded' ? 'lut-graded' : 'lut-raw-log'}
                 style={{
                   width: '100%',

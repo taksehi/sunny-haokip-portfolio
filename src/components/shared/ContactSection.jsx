@@ -405,10 +405,16 @@ export default function ContactSection({ personal, activeMode }) {
                     type="button"
                     onClick={handleCopyEmail}
                     className="btn btn-outline"
-                    style={{ fontSize: '0.82rem' }}
+                    style={{
+                      fontSize: '0.82rem',
+                      maxWidth: '100%',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap'
+                    }}
                   >
                     {copiedEmail ? <Check size={14} /> : <Copy size={14} />}
-                    <span>{copiedEmail ? 'Email Copied' : personal.socials.email}</span>
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{copiedEmail ? 'Email Copied' : personal.socials.email}</span>
                   </button>
                 </div>
               </form>

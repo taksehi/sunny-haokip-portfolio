@@ -69,7 +69,7 @@ export default function PixelArtLanding({ onSelectMode, onScrollDown, onOpenShow
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        height: '100vh',
+        height: '100dvh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -109,18 +109,18 @@ export default function PixelArtLanding({ onSelectMode, onScrollDown, onOpenShow
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.02) 50%, rgba(10,10,10,0.65) 90%, #0a0a0a 100%)',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.02) 40%, rgba(10,10,10,0.7) 85%, #0a0a0a 100%)',
           pointerEvents: 'none'
         }} />
 
-        {/* Left-edge soft shadow to ensure white text readability against blue sky/clouds */}
+        {/* Left-edge soft shadow to ensure white text readability against blue sky/clouds on any screen width */}
         <div style={{
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '55%',
+          width: 'clamp(50%, 65vw, 100%)',
           height: '100%',
-          background: 'linear-gradient(to right, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.12) 70%, transparent 100%)',
+          background: 'linear-gradient(to right, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.25) 60%, transparent 100%)',
           pointerEvents: 'none'
         }} />
       </div>
@@ -140,47 +140,47 @@ export default function PixelArtLanding({ onSelectMode, onScrollDown, onOpenShow
       />
 
       {/* Spacer to push content down naturally */}
-      <div style={{ height: '3rem' }} />
+      <div style={{ height: 'clamp(1.5rem, 5vh, 3.5rem)' }} />
 
       {/* 3. Center Content: Left Copy & Primary CTAs */}
       <div style={{
         position: 'relative',
         zIndex: 2,
-        padding: '1.5rem 3rem',
-        maxWidth: '1440px',
+        padding: 'clamp(1rem, 3.5vw, 3rem)',
+        maxWidth: '1600px',
         margin: '0 auto',
         width: '100%'
       }}>
-        <div style={{ maxWidth: '680px' }}>
+        <div style={{ maxWidth: '720px' }}>
           <h1 style={{
-            fontSize: 'clamp(2.6rem, 5.5vw, 4.6rem)',
+            fontSize: 'clamp(2.1rem, 5.2vw, 4.6rem)',
             fontWeight: 400,
             lineHeight: 1.08,
             letterSpacing: '-0.025em',
-            marginBottom: '1.35rem',
+            marginBottom: '1.25rem',
             color: '#ffffff',
-            textShadow: '0 3px 20px rgba(0, 0, 0, 0.5)'
+            textShadow: '0 3px 20px rgba(0, 0, 0, 0.6)'
           }}>
             Operating at the convergence of code & cinema
           </h1>
 
           <p style={{
-            fontSize: 'clamp(1.05rem, 1.3vw, 1.25rem)',
-            color: 'rgba(255, 255, 255, 0.92)',
+            fontSize: 'clamp(0.95rem, 1.35vw, 1.25rem)',
+            color: 'rgba(255, 255, 255, 0.94)',
             lineHeight: 1.55,
-            marginBottom: '2.5rem',
+            marginBottom: 'clamp(1.75rem, 4vh, 2.5rem)',
             fontWeight: 400,
-            textShadow: '0 2px 12px rgba(0, 0, 0, 0.5)'
+            textShadow: '0 2px 12px rgba(0, 0, 0, 0.6)'
           }}>
             Architecting high-throughput full-stack systems and directing atmospheric visual narratives. Hand off software or cinema to bespoke creative workflows.
           </p>
 
-          {/* Primary Action Buttons (Exact CoFounder pill layout) */}
+          {/* Primary Action Buttons (Responsive flex layout for Mobile & TV) */}
           <div style={{
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
-            gap: '1rem'
+            gap: 'clamp(0.6rem, 1.5vw, 1rem)'
           }}>
             {/* White solid button like CoFounder "Run a company" */}
             <button

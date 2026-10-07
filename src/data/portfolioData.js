@@ -117,8 +117,7 @@ export const portfolioData = {
       description: "A solo-shot cinematic journey capturing the pristine forests, emerald valleys, and nocturnal serenity of Jibhi, Himachal Pradesh.",
       longDescription: "Shot entirely solo on location with a lightweight cinema setup. Emphasizes organic natural light transitions, serene pacing, authentic mountain soundscapes, and an atmospheric color grade accentuating deep forest greens and golden high-altitude sunsets.",
       gear: "4K 10-bit Rig + Prime Lenses • DaVinci Resolve • Premiere Pro",
-      previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4",
-      posterImage: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
+      posterImage: "https://drive.google.com/thumbnail?id=1h4_xclJ6z1_VdnflUMeHliRhlXoGSatM&sz=w1200",
       embedUrl: "https://drive.google.com/file/d/1h4_xclJ6z1_VdnflUMeHliRhlXoGSatM/preview",
       driveUrl: "https://drive.google.com/file/d/1h4_xclJ6z1_VdnflUMeHliRhlXoGSatM/view",
       awards: "Solo-Shot Travel Film Spotlight"
@@ -129,15 +128,14 @@ export const portfolioData = {
       client: "Creator Collaboration & High-Energy Spot",
       category: "Commercial & Creator",
       year: "2025",
-      aspectRatio: "9:16 Vertical / 16:9 Dynamic",
+      aspectRatio: "9:16 Vertical Reel",
       duration: "00:45",
       role: "Commercial Editor • Sound Designer • Motion Graphics",
       featured: true,
       description: "High-octane creator reel packed with rhythmic match cuts, kinetic typographic callouts, sound design transients, and retention-engineered pacing.",
       longDescription: "Engineered specifically for peak engagement and audience retention. Features frame-accurate sound design, speed ramps, customized After Effects visual overlays, and punchy color contrast tuned for high-impact digital playback.",
       gear: "Adobe Premiere Pro • Adobe After Effects • Custom SFX Suite",
-      previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-hands-typing-on-a-laptop-keyboard-41312-large.mp4",
-      posterImage: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop",
+      posterImage: "https://drive.google.com/thumbnail?id=1v4NhhF4ybhAwfiLMtQXu5RQxSENyH3Sk&sz=w1200",
       embedUrl: "https://drive.google.com/file/d/1v4NhhF4ybhAwfiLMtQXu5RQxSENyH3Sk/preview",
       driveUrl: "https://drive.google.com/file/d/1v4NhhF4ybhAwfiLMtQXu5RQxSENyH3Sk/view",
       awards: "High-Retention Creator Reel"
@@ -155,8 +153,7 @@ export const portfolioData = {
       description: "Polished commercial spot combining clean product lighting, rhythmic pacing, and seamless brand storytelling.",
       longDescription: "Designed to showcase brand identity and product craftsmanship. Integrated custom motion graphics, macro details, and precision color balancing to deliver an elevated, broadcast-ready commercial.",
       gear: "Commercial Production Suite • After Effects • Premiere Pro",
-      previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-car-driving-through-the-city-lights-at-night-4235-large.mp4",
-      posterImage: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop",
+      posterImage: "https://drive.google.com/thumbnail?id=1mzYt65QRAsfpomDwALnvpEOWOzRhbQtm&sz=w1200",
       embedUrl: "https://drive.google.com/file/d/1mzYt65QRAsfpomDwALnvpEOWOzRhbQtm/preview",
       driveUrl: "https://drive.google.com/file/d/1mzYt65QRAsfpomDwALnvpEOWOzRhbQtm/view",
       awards: "Commercial Client Delivery"
@@ -174,8 +171,7 @@ export const portfolioData = {
       description: "Sleek product video animating web UI components, intelligent agent capabilities, and modern data visualizations.",
       longDescription: "Translates complex software algorithms and web user experiences into dynamic, visually digestible motion stories. Utilized After Effects for 2.5D camera moves, UI particle trails, and interactive interface showcases.",
       gear: "Adobe After Effects • Figma Vector Assets • Premiere Pro",
-      previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-902-large.mp4",
-      posterImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop",
+      posterImage: "https://drive.google.com/thumbnail?id=1G_VSgcTE4PMXtTPcmzqSOSCIBS1naawj&sz=w1200",
       embedUrl: "https://drive.google.com/file/d/1G_VSgcTE4PMXtTPcmzqSOSCIBS1naawj/preview",
       driveUrl: "https://drive.google.com/file/d/1G_VSgcTE4PMXtTPcmzqSOSCIBS1naawj/view",
       awards: "Tech Product Showcase"
@@ -193,11 +189,28 @@ export const portfolioData = {
       description: "Moody, contemplative visual piece exploring isolated spaces, shadow play, and nuanced color tones.",
       longDescription: "Shot with subtle camera movement and natural ambient lighting. Features textured film grain emulation, selective color grades, and acoustic sound textures.",
       gear: "Cinema Camera Package • DaVinci Resolve • Premiere Pro",
-      previewVideo: "https://assets.mixkit.co/videos/preview/mixkit-silhouettes-of-dancers-in-a-nightclub-4339-large.mp4",
-      posterImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop",
+      posterImage: "https://drive.google.com/thumbnail?id=1J8yY15wkWDSEU9KsP4l7aJLP6vJJBkgZ&sz=w1200",
       embedUrl: "https://drive.google.com/file/d/1J8yY15wkWDSEU9KsP4l7aJLP6vJJBkgZ/preview",
       driveUrl: "https://drive.google.com/file/d/1J8yY15wkWDSEU9KsP4l7aJLP6vJJBkgZ/view",
       awards: "Visual Tone Poem"
+    },
+    {
+      id: "film-6",
+      title: "Election Campaign Reel",
+      client: "Political & Cultural Narrative Reel",
+      category: "Commercial & Creator",
+      year: "2024",
+      aspectRatio: "9:16 Vertical Reel",
+      duration: "00:50",
+      role: "Lead Editor • Sound Design • Dynamic Color Grade",
+      featured: false,
+      description: "High-impact vertical political & community narrative reel cut with commanding pacing, impactful kinetic subtitles, and resonant sound design.",
+      longDescription: "Crafted for mobile virality and high viewer retention across social media platforms. Employs fast match-cuts, voiceover normalization, and impactful visual punctuation.",
+      gear: "Adobe Premiere Pro • After Effects • DaVinci Resolve",
+      posterImage: "https://drive.google.com/thumbnail?id=1V8Z-eaYsCYHEj9c57BFzZm1EKJHkOipp&sz=w1200",
+      embedUrl: "https://drive.google.com/file/d/1V8Z-eaYsCYHEj9c57BFzZm1EKJHkOipp/preview",
+      driveUrl: "https://drive.google.com/file/d/1V8Z-eaYsCYHEj9c57BFzZm1EKJHkOipp/view",
+      awards: "Political Campaign Edit"
     }
   ],
 
@@ -207,7 +220,7 @@ export const portfolioData = {
     duration: "02:15",
     description: "A showcase of commercial direction, solo-shot travel filmmaking ('Welcome to Jibhi'), tech creator edits ('Techburner'), and After Effects motion design.",
     embedUrl: "https://drive.google.com/file/d/1h4_xclJ6z1_VdnflUMeHliRhlXoGSatM/preview",
-    posterImage: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1600&auto=format&fit=crop"
+    posterImage: "https://drive.google.com/thumbnail?id=1h4_xclJ6z1_VdnflUMeHliRhlXoGSatM&sz=w1200"
   }
 };
 

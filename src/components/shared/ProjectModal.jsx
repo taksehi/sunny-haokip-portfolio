@@ -195,26 +195,9 @@ export default function ProjectModal({ project, type, onClose }) {
           </>
         ) : isVertical ? (
           /* Vertical Film Project Modal (Side-by-Side Dynamic Reel Console) */
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            minHeight: '480px'
-          }}>
+          <div className="modal-reel-split-container">
             {/* Left: Dynamic Vertical Reel Viewport (Zero Black Bars) */}
-            <div style={{
-              flex: '1 1 340px',
-              maxWidth: '420px',
-              minWidth: '280px',
-              background: '#040404',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '1.5rem',
-              borderRight: '1px solid var(--border-hairline)',
-              position: 'relative'
-            }}>
+            <div className="modal-reel-video-col">
               {/* Vertical Phone/Reel Bezel Frame */}
               <div style={{
                 width: '100%',
@@ -313,13 +296,7 @@ export default function ProjectModal({ project, type, onClose }) {
             </div>
 
             {/* Right: Project Details & Actions */}
-            <div style={{
-              flex: '1 1 360px',
-              padding: '2.25rem',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between'
-            }}>
+            <div className="modal-reel-content-col">
               <div>
                 <div style={{
                   display: 'flex',

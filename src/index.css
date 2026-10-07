@@ -188,6 +188,15 @@ h1, h2, h3, h4, h5 {
 @media (max-width: 860px) {
   .grid-2 {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* TV & Ultra-wide 3-column scaling */
+@media (min-width: 2100px) {
+  .grid-2 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.25rem;
   }
 }
 
@@ -268,8 +277,160 @@ h1, h2, h3, h4, h5 {
 
 @media (max-width: 860px) {
   .tilt-card-dev, .tilt-card-film {
-    transform: none;
+    transform: none !important;
   }
 }
 
+/* ========================================================= */
+/* UNIVERSAL DEVICE VERSATILITY: MOBILE, TABLET, DESKTOP, TV */
+/* ========================================================= */
 
+/* 1. Ultra-Wide Monitors & Smart 4K TVs (1080p, 1440p, 4K, 8K) */
+@media (min-width: 1800px) {
+  .container {
+    max-width: 1620px;
+    padding: 0 3rem;
+  }
+}
+
+@media (min-width: 2400px) {
+  html {
+    font-size: 19px; /* Proportional text scaling for 10-foot viewing distance on 4K/8K TVs */
+  }
+  .container {
+    max-width: 2100px;
+    padding: 0 4rem;
+  }
+}
+
+/* High-Visibility Focus Outline for TV Remotes & Keyboard Navigation */
+:focus-visible {
+  outline: 2px solid var(--action-primary);
+  outline-offset: 4px;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
+}
+
+/* 2. Tablets & Medium Screens (641px - 1024px) */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+/* 3. Small Mobile Phones (<= 640px) */
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  /* Safe area padding for iPhone Dynamic Island / notch & bottom bar */
+  body {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  /* Ensure polaroids remain within viewport on small screens */
+  .polaroid-rotatable {
+    transform: none !important;
+  }
+
+  /* Fullscreen modal on phone screens */
+  .modal-overlay {
+    padding: 0.5rem !important;
+  }
+
+  .modal-content {
+    max-height: 96dvh !important;
+    border-radius: 14px !important;
+  }
+
+  /* Touch buttons minimum tap target */
+  .btn, button.btn-outline, button.btn-primary {
+    min-height: 44px;
+  }
+}
+
+/* 4. Touch-Screen Specific Enhancements */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover-dependent translation jumps on mobile */
+  .editorial-panel:hover {
+    transform: none !important;
+  }
+
+  /* Tap highlights */
+  * {
+    -webkit-tap-highlight-color: rgba(245, 158, 11, 0.15);
+  }
+}
+
+/* 6. Dynamic Vertical Reel Modal Responsive Rules */
+.modal-reel-split-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 480px;
+}
+
+.modal-reel-video-col {
+  flex: 1 1 340px;
+  max-width: 420px;
+  min-width: 280px;
+  background: #040404;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border-right: 1px solid var(--border-hairline);
+  position: relative;
+}
+
+.modal-reel-content-col {
+  flex: 1 1 360px;
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .modal-reel-split-container {
+    flex-direction: column !important;
+    min-height: auto;
+  }
+
+  .modal-reel-video-col {
+    max-width: 100% !important;
+    min-width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-hairline) !important;
+    padding: 1.25rem 0.75rem !important;
+  }
+
+  .modal-reel-content-col {
+    padding: 1.5rem 1.25rem !important;
+  }
+}
+
+/* 7. Zero Horizontal Overflow Protection Across All Devices */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 8. Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
