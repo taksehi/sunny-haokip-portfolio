@@ -434,3 +434,46 @@ html, body {
     scroll-behavior: auto !important;
   }
 }
+
+/* 9. View Transitions API Dynamic Smoothing */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 10. Recruiter Dossier Clean Print Stylesheet */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+  body > * {
+    display: none !important;
+  }
+  .modal-backdrop-custom {
+    display: block !important;
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+  }
+  .recruiter-dossier-card {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    padding: 0 !important;
+  }
+  .recruiter-dossier-card * {
+    color: #111111 !important;
+    border-color: #dddddd !important;
+  }
+  .recruiter-dossier-card button {
+    display: none !important;
+  }
+}

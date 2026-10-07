@@ -15,6 +15,18 @@ export function PortfolioProvider({ children }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalType, setModalType] = useState('dev');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRecruiterModalOpen, setIsRecruiterModalOpen] = useState(false);
+
+  // Smooth mode transition using native browser View Transitions API
+  const setModeWithTransition = (newMode) => {
+    if (typeof document !== 'undefined' && document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.startViewTransition(() => {
+        setActiveMode(newMode);
+      });
+    } else {
+      setActiveMode(newMode);
+    }
+  };
 
   // Filter states
   const [devFilter, setDevFilter] = useState('All');
@@ -115,13 +127,15 @@ export function PortfolioProvider({ children }) {
 
     // Modes & Switchers
     activeMode,
-    setActiveMode,
-    toggleMode: () => setActiveMode(prev => prev === 'dev' ? 'film' : 'dev'),
+    setActiveMode: setModeWithTransition,
+    toggleMode: () => setModeWithTransition(prev => prev === 'dev' ? 'film' : 'dev'),
 
     // Modals
     selectedProject,
     modalType,
     isModalOpen,
+    isRecruiterModalOpen,
+    setIsRecruiterModalOpen,
     openDevProject,
     openFilmProject,
     openShowreel,

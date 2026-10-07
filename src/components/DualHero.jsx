@@ -74,10 +74,51 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
         type: 'response',
         text: 'RUNNING CLIENT TELEMETRY BENCHMARK...\n  ✓ Shader Pipeline: 60.0 FPS stable\n  ✓ Database Latency: Neon Serverless OK\n  ✓ Memory Heap: 24.8 MB\n  RESULT: Optimal 100%'
       });
+    } else if (trimmed.startsWith('signal ') || trimmed.startsWith('post ')) {
+      const msg = cmd.replace(/^(signal|post)\s+/i, '').replace(/^["']|["']$/g, '');
+      newHistory.push({
+        type: 'response',
+        text: `TRANSMITTING SIGNAL TO NEON POSTGRESQL CLUSTER...\n"${msg}"`
+      });
+      fetch('/api/guestbook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ author: 'Terminal Visitor', message: msg })
+      })
+      .then(r => r.json())
+      .then(res => {
+        setTerminalHistory(prev => [
+          ...prev,
+          {
+            type: 'response',
+            text: res.persistedToNeon
+              ? `✓ SIGNAL RECORDED IN NEON POSTGRESQL (${res.signal.location})`
+              : `✓ SIGNAL BUFFERED (Edge buffer verified)`
+          }
+        ]);
+      })
+      .catch(() => {});
+    } else if (trimmed === 'signals' || trimmed === 'guestbook') {
+      newHistory.push({
+        type: 'response',
+        text: 'QUERYING LIVE TELEMETRY SIGNALS FROM NEON...'
+      });
+      fetch('/api/guestbook')
+        .then(r => r.json())
+        .then(res => {
+          if (res.signals && res.signals.length > 0) {
+            const formatted = res.signals.map(s => `  • [${s.location || 'Edge'}] ${s.author}: "${s.message}"`).join('\n');
+            setTerminalHistory(prev => [
+              ...prev,
+              { type: 'response', text: `LIVE GUESTBOOK SIGNALS (${res.source.toUpperCase()}):\n${formatted}\n\nTip: Post your own signal: signal "Your message here"` }
+            ]);
+          }
+        })
+        .catch(() => {});
     } else if (trimmed === 'help') {
       newHistory.push({
         type: 'response',
-        text: 'AVAILABLE COMMANDS:\n  skills     - View engineering stack & systems radar\n  projects   - Inspect featured software repositories\n  resume     - View academic credentials & engineering focus\n  ping       - Execute network latency telemetry diagnostic\n  contact    - Retrieve transmission channels & email\n  film       - Toggle directly to Filmmaker mode\n  benchmark  - Execute live performance diagnostics\n  clear      - Clear the console buffer'
+        text: 'AVAILABLE COMMANDS:\n  skills     - View engineering stack & systems radar\n  projects   - Inspect featured software repositories\n  resume     - View academic credentials & engineering focus\n  guestbook  - Read live visitor signals from Neon DB\n  signal <m> - Transmit your signal to Neon live wall\n  ping       - Execute network latency telemetry diagnostic\n  contact    - Retrieve transmission channels & email\n  film       - Toggle directly to Filmmaker mode\n  benchmark  - Execute live performance diagnostics\n  clear      - Clear the console buffer'
       });
     } else {
       newHistory.push({
@@ -309,7 +350,7 @@ export default function DualHero({ activeMode, onToggleMode, personal, onOpenSho
               <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-faint)', alignSelf: 'center', marginRight: '0.25rem' }}>
                 Quick Run:
               </span>
-              {['skills', 'projects', 'resume', 'ping', 'benchmark', 'clear'].map((cmd) => (
+              {['skills', 'projects', 'resume', 'guestbook', 'ping', 'benchmark', 'clear'].map((cmd) => (
                 <button
                   key={cmd}
                   onClick={() => handleCommand(cmd)}

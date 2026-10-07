@@ -13,6 +13,7 @@ import { useGamepadNavigation } from './hooks/useGamepadNavigation';
 
 // Dynamic code splitting for heavy modal components
 const ProjectModal = lazy(() => import('./components/shared/ProjectModal'));
+const RecruiterModal = lazy(() => import('./components/shared/RecruiterModal'));
 
 function PortfolioApp() {
   const {
@@ -27,6 +28,8 @@ function PortfolioApp() {
     selectedProject,
     modalType,
     isModalOpen,
+    isRecruiterModalOpen,
+    setIsRecruiterModalOpen,
     openDevProject,
     openFilmProject,
     openShowreel,
@@ -70,6 +73,7 @@ function PortfolioApp() {
         activeMode={activeMode}
         onToggleMode={setActiveMode}
         personal={personal}
+        onOpenRecruiterModal={() => setIsRecruiterModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -132,6 +136,19 @@ function PortfolioApp() {
             project={selectedProject}
             type={modalType}
             onClose={closeModal}
+          />
+        </Suspense>
+      )}
+
+      {/* Recruiter Lens Dossier & Clean ATS Resume Exporter */}
+      {isRecruiterModalOpen && (
+        <Suspense fallback={null}>
+          <RecruiterModal
+            isOpen={isRecruiterModalOpen}
+            onClose={() => setIsRecruiterModalOpen(false)}
+            personal={personal}
+            devProjects={devProjects}
+            filmProjects={filmProjects}
           />
         </Suspense>
       )}

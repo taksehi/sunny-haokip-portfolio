@@ -120,6 +120,17 @@ export async function initDatabase() {
       );
     `;
 
+    // 4. Guestbook signals table for terminal live wall
+    await sql`
+      CREATE TABLE IF NOT EXISTS guestbook_signals (
+        id SERIAL PRIMARY KEY,
+        author TEXT NOT NULL,
+        message TEXT NOT NULL,
+        location TEXT DEFAULT 'Global Node',
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      );
+    `;
+
     return { ok: true, message: 'Neon schema initialized successfully' };
   } catch (error) {
     console.error('Error initializing Neon database:', error);
@@ -208,6 +219,55 @@ export async function fetchNeonPortfolioData() {
     return { devProjects, filmProjects };
   } catch (error) {
     console.error('Error querying Neon portfolio:', error);
+    return null;
+  }
+}
+
+/**
+  * Saves a guestbook signal into Neon
+  */
+export async function saveSignal({ author, message, location }) {
+  if (!isNeonConfigured()) {
+    return { ok: false, message: 'Neon not configured' };
+  }
+
+  try {
+    const client = getSql();
+    const result = await client`
+      INSERT INTO guestbook_signals (author, message, location)
+      VALUES (
+        ${author.slice(0, 50)},
+        ${message.slice(0, 280)},
+        ${location ? location.slice(0, 60) : 'Global Edge Node'}
+      )
+      RETURNING id, author, message, location, created_at;
+    `;
+    return { ok: true, data: result[0] };
+  } catch (err) {
+    console.error('Failed to save signal to Neon:', err);
+    return { ok: false, error: err.message };
+  }
+}
+
+/**
+  * Fetches the latest guestbook signals from Neon
+  */
+export async function fetchSignals(limit = 10) {
+  if (!isNeonConfigured()) {
+    return null;
+  }
+
+  try {
+    const client = getSql();
+    const rows = await client`
+      SELECT id, author, message, location, created_at
+      FROM guestbook_signals
+      ORDER BY created_at DESC
+      LIMIT ${limit};
+    `;
+    return rows;
+  } catch (err) {
+    console.error('Failed to fetch signals from Neon:', err);
     return null;
   }
 }

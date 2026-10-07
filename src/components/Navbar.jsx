@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Clapperboard, Send, Compass, Menu, X, Volume2, VolumeX } from 'lucide-react';
+import { Terminal, Clapperboard, Send, Compass, Menu, X, Volume2, VolumeX, ShieldCheck } from 'lucide-react';
 import soundFX from '../utils/soundEffects';
 
-export default function Navbar({ activeMode, onToggleMode, personal }) {
+export default function Navbar({ activeMode, onToggleMode, personal, onOpenRecruiterModal }) {
   const isDev = activeMode === 'dev';
   const [isVisible, setIsVisible] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -217,6 +217,29 @@ export default function Navbar({ activeMode, onToggleMode, personal }) {
             {sfxActive ? <Volume2 size={13} /> : <VolumeX size={13} />}
           </button>
 
+          {/* Recruiter Dossier Quick Trigger */}
+          <button
+            type="button"
+            onClick={onOpenRecruiterModal}
+            title="Open Verified Recruiter Dossier & ATS Resume"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid var(--border-hairline)',
+              color: 'var(--text-primary)',
+              padding: '0.4rem 0.85rem',
+              borderRadius: '9999px',
+              fontSize: '0.78rem',
+              cursor: 'pointer',
+              transition: 'all var(--transition-fast)'
+            }}
+          >
+            <ShieldCheck size={13} style={{ color: isDev ? 'var(--accent-compass)' : 'var(--action-primary)' }} />
+            <span>Recruiter Lens</span>
+          </button>
+
           <a
             href="#contact"
             className="btn btn-primary"
@@ -307,6 +330,32 @@ export default function Navbar({ activeMode, onToggleMode, personal }) {
           >
             About & Bio
           </a>
+
+          <button
+            type="button"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenRecruiterModal();
+            }}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              padding: '0.65rem',
+              marginTop: '0.5rem',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid var(--border-hairline)',
+              borderRadius: '6px',
+              color: 'var(--text-primary)',
+              fontSize: '0.88rem',
+              cursor: 'pointer'
+            }}
+          >
+            <ShieldCheck size={15} style={{ color: isDev ? 'var(--accent-compass)' : 'var(--action-primary)' }} />
+            <span>Open Recruiter Dossier</span>
+          </button>
 
           <a
             href="#contact"
