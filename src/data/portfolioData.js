@@ -16,7 +16,8 @@ export const portfolioData = {
     socials: {
       email: "sunnyhaokip04@gmail.com",
       linkedin: "https://www.linkedin.com/in/sunnyhaokip",
-      github: "https://github.com",
+      github: "https://github.com/taksehi/sunny-haokip-portfolio",
+      vercel: "https://sunny-haokip.vercel.app/",
       googleDrivePortfolio: "https://drive.google.com/drive/folders/1Oy9zLg7LzFMmGiX8P5NDRuiqNh6gky7A",
       techbaton: "https://techbaton.com/"
     }

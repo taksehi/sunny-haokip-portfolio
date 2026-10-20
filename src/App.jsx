@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import PixelArtLanding from './components/gateway/PixelArtLanding';
+import IntroStorySection from './components/gateway/IntroStorySection';
 import DisciplineSelector from './components/gateway/DisciplineSelector';
 import AmbientCanvas from './components/gateway/AmbientCanvas';
 import DevShowcase from './components/dev/DevShowcase';
@@ -10,7 +11,6 @@ import ContactSection from './components/shared/ContactSection';
 import Footer from './components/shared/Footer';
 import { PortfolioProvider, usePortfolio } from './context/PortfolioContext';
 import { useGamepadNavigation } from './hooks/useGamepadNavigation';
-
 // Dynamic code splitting for heavy modal components
 const ProjectModal = lazy(() => import('./components/shared/ProjectModal'));
 const RecruiterModal = lazy(() => import('./components/shared/RecruiterModal'));
@@ -43,20 +43,74 @@ function PortfolioApp() {
     isModalOpen
   });
 
+  // Smooth programmatic scroll interpolation with user interruption and accessibility support
+  const smoothScrollTo = (targetY, duration = 850) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, targetY);
+      return;
+    }
+
+    const startY = window.scrollY || window.pageYOffset;
+    const distance = targetY - startY;
+    if (Math.abs(distance) < 5) return;
+    const startTime = performance.now();
+    let isCancelled = false;
+
+    const cancel = () => {
+      isCancelled = true;
+      window.removeEventListener('wheel', cancel);
+      window.removeEventListener('touchstart', cancel);
+    };
+
+    window.addEventListener('wheel', cancel, { passive: true, once: true });
+    window.addEventListener('touchstart', cancel, { passive: true, once: true });
+
+    const step = (now) => {
+      if (isCancelled) return;
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeInOutCubic: buttery acceleration and deceleration
+      const ease = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+      window.scrollTo(0, startY + distance * ease);
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        window.removeEventListener('wheel', cancel);
+        window.removeEventListener('touchstart', cancel);
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
   const handleSelectModeAndScroll = (mode) => {
     setActiveMode(mode);
     setTimeout(() => {
       const el = document.getElementById('showcase-area');
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+        const top = el.getBoundingClientRect().top + window.scrollY - 68;
+        smoothScrollTo(top, 900);
       }
-    }, 50);
+    }, 60);
+  };
+
+  const handleScrollToIntro = () => {
+    const el = document.getElementById('intro-story');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 68;
+      smoothScrollTo(top, 850);
+    }
   };
 
   const handleScrollToSelector = () => {
     const el = document.getElementById('discipline-selector');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      const top = el.getBoundingClientRect().top + window.scrollY - 68;
+      smoothScrollTo(top, 850);
     }
   };
 
@@ -81,11 +135,18 @@ function PortfolioApp() {
         {/* Screen 1: CoFounder-Inspired Animated Pixel Art Landing Cover */}
         <PixelArtLanding
           onSelectMode={handleSelectModeAndScroll}
-          onScrollDown={handleScrollToSelector}
+          onScrollDown={handleScrollToIntro}
           onOpenShowreel={openShowreel}
         />
 
         {/* Screen 2: Two-Option Choice Gateway [ Dev ] [ Film ] */}
+        <IntroStorySection
+          personal={personal}
+          activeMode={activeMode}
+          onSelectMode={handleSelectModeAndScroll}
+          onOpenShowreel={openShowreel}
+        />
+
         <DisciplineSelector
           activeMode={activeMode}
           onSelectMode={setActiveMode}
@@ -93,21 +154,23 @@ function PortfolioApp() {
 
         {/* Screen 3: Selected Discipline Showcase World */}
         <div id="showcase-area" style={{ scrollMarginTop: '5rem' }}>
-          {activeMode === 'dev' ? (
-            <DevShowcase
-              projects={devProjects}
-              skills={devSkills}
-              onSelectProject={openDevProject}
-            />
-          ) : (
-            <FilmShowcase
-              projects={filmProjects}
-              gear={filmGear}
-              showreel={showreel}
-              onSelectProject={openFilmProject}
-              onOpenShowreel={openShowreel}
-            />
-          )}
+          <div key={activeMode} className="showcase-mode-transition">
+            {activeMode === 'dev' ? (
+              <DevShowcase
+                projects={devProjects}
+                skills={devSkills}
+                onSelectProject={openDevProject}
+              />
+            ) : (
+              <FilmShowcase
+                projects={filmProjects}
+                gear={filmGear}
+                showreel={showreel}
+                onSelectProject={openFilmProject}
+                onOpenShowreel={openShowreel}
+              />
+            )}
+          </div>
         </div>
 
         {/* Shared Creative & Technical Philosophy */}

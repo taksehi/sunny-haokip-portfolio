@@ -1,0 +1,903 @@
+/* ==========================================================================
+   Interactive 8-Bit Retro Laptop Component Styles
+   Pure CSS 3D transforms
+   Palette:
+     Beige:    #d9ccaa (chassis, casing, bevels)
+     Phosphor: #8dffc4 (CRT glow, terminal text, status)
+     Amber:    #ffb347 (rainbow stripe, retro accents)
+     Pink:     #ff5fa2 (rainbow stripe, accent)
+     Dark:     #14122e / #111417 (CRT glass, chassis shadow)
+   ========================================================================== */
+
+.laptop-scroll-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  overflow: visible;
+}
+
+/* 3D Viewport & Master Positioning Rig */
+.laptop-3d-rig {
+  position: absolute;
+  width: min(450px, 86vw);
+  height: min(255px, 49vw);
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: auto;
+  transition: filter 0.3s ease;
+}
+
+/* --- Natural Soft Contact Shadow on the Meadow (Image 1 fix) --- */
+.r8-meadow-shadow {
+  position: absolute;
+  bottom: -14px;
+  left: 6%;
+  width: 88%;
+  height: 44px;
+  background: radial-gradient(ellipse at center, rgba(10, 16, 12, 0.82) 0%, rgba(15, 25, 18, 0.4) 45%, transparent 75%);
+  border-radius: 50%;
+  transform: rotateX(84deg) translateZ(-18px);
+  filter: blur(8px);
+  pointer-events: none;
+  transition: opacity 0.2s linear, transform 0.2s linear;
+}
+
+/* ==========================================================================
+   LAPTOP BASE / CHASSIS (CHUNKY BEIGE 8-BIT SLAB)
+   ========================================================================== */
+.r8-beige-base {
+  position: absolute;
+  inset: 0;
+  background-color: #d9ccaa;
+  border-radius: 8px 8px 12px 12px;
+  border: 4px solid #ece3cb;
+  border-right-color: #b8a77f;
+  border-bottom-color: #8b7952;
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #7a6842,
+    0 8px 24px rgba(0, 0, 0, 0.45);
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px 8px;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.r8-base-hinge-accent {
+  position: absolute;
+  top: -5px;
+  left: 30px;
+  right: 30px;
+  height: 8px;
+  background: linear-gradient(to bottom, #302619, #544530, #221a10);
+  border: 1px solid #14100c;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+/* Keyboard Well */
+.r8-retro-keyboard {
+  background: #231f18;
+  border: 2px solid #7a6842;
+  border-top-color: #4a3e26;
+  border-left-color: #4a3e26;
+  border-radius: 3px;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.85);
+  padding: 3px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px;
+}
+
+.laptop-kb-row {
+  display: flex;
+  gap: 2px;
+  justify-content: space-between;
+}
+
+.laptop-key {
+  flex: 1;
+  height: 14px;
+  background: #e8dfc7;
+  border: 1.5px solid #ffffff;
+  border-right-color: #b8a77f;
+  border-bottom-color: #8b7952;
+  border-radius: 2px;
+  color: #3b3226;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 5.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 1px 0 #6e5e39;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.r8-key-dark {
+  background: #473d31;
+  border-color: #615343;
+  border-right-color: #2e261e;
+  border-bottom-color: #1e1812;
+  color: #e8dfc7;
+  box-shadow: 0 1px 0 #14100c;
+}
+
+.r8-key-accent {
+  background: #ffb347;
+  border-color: #ffd494;
+  border-right-color: #c47c16;
+  border-bottom-color: #945a0b;
+  color: #241400;
+  font-weight: 700;
+}
+
+.r8-key-space {
+  flex: 5.5 !important;
+}
+
+/* Palm Rest Bar with Floppy Slot & Retro Badge */
+.r8-palm-rest-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3px;
+  padding: 0 4px;
+}
+
+.r8-floppy-bay {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.r8-floppy-slit {
+  width: 60px;
+  height: 3px;
+  background: #14100c;
+  border: 1px solid #7a6842;
+  box-shadow: inset 0 2px 3px #000;
+  border-radius: 1px;
+}
+
+.r8-status-led {
+  width: 5px;
+  height: 5px;
+  background: #382719;
+  border-radius: 50%;
+  border: 1px solid #1a120b;
+  transition: all 0.3s ease;
+}
+
+.r8-status-led.active {
+  background: #8dffc4;
+  border-color: #ffffff;
+  box-shadow: 0 0 6px #8dffc4, 0 0 12px #8dffc4;
+}
+
+.r8-badge-plate {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.5px;
+  color: #4a3e26;
+  font-weight: 700;
+}
+
+.r8-mini-stripes {
+  display: flex;
+  height: 7px;
+  gap: 1.5px;
+}
+
+.r8-mini-stripes span {
+  width: 3.5px;
+  height: 100%;
+  border-radius: 0.5px;
+}
+
+.stripe-pink { background: #ff5fa2; }
+.stripe-amber { background: #ffb347; }
+.stripe-green { background: #8dffc4; }
+
+.r8-badge-label {
+  font-size: 6.5px;
+  letter-spacing: 0.8px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* ==========================================================================
+   THE 3D LID ASSEMBLY (Hinged at top rear edge)
+   ========================================================================== */
+.r8-lid-assembly {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px 8px 12px 12px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* --- BACK OF LID (Visible when CLOSED at scroll = 0) --- */
+.r8-lid-outer-shell {
+  position: absolute;
+  inset: 0;
+  background-color: #d9ccaa;
+  border: 4px solid #ece3cb;
+  border-right-color: #b8a77f;
+  border-bottom-color: #8b7952;
+  border-radius: 8px 8px 12px 12px;
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #7a6842,
+    0 10px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 24px;
+  box-sizing: border-box;
+  transform: translateZ(2px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Retro 3-Color Rainbow Stripe */
+.r8-retro-rainbow-bar {
+  display: flex;
+  flex-direction: column;
+  height: 14px;
+  width: 100%;
+  border: 2px solid #231f18;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 2px 0 #8b7952;
+}
+
+.r8-band-pink { flex: 1; background-color: #ff5fa2; }
+.r8-band-amber { flex: 1; background-color: #ffb347; }
+.r8-band-green { flex: 1; background-color: #8dffc4; }
+
+/* Embossed Emblem */
+.r8-lid-emblem-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #231f18;
+  border: 2px solid #8b7952;
+  border-right-color: #ffffff;
+  border-bottom-color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 3px;
+  box-shadow: inset 0 2px 4px #000;
+  margin: 12px auto;
+  max-width: 220px;
+}
+
+.r8-emblem-main {
+  font-family: 'Press Start 2P', monospace, cursive;
+  font-size: 11px;
+  color: #ece3cb;
+  letter-spacing: 2px;
+}
+
+.r8-emblem-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  color: #ffb347;
+  letter-spacing: 1px;
+  margin-top: 3px;
+  font-weight: 700;
+}
+
+.r8-lid-specs-footer {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.5px;
+  color: #635436;
+  border-top: 1px dashed #b8a77f;
+  padding-top: 6px;
+  font-weight: 600;
+}
+
+/* --- FRONT OF LID (Inner Bezel & CRT Screen) --- */
+.r8-lid-inner-bezel {
+  position: absolute;
+  inset: 0;
+  background-color: #d9ccaa;
+  border: 3px solid #ece3cb;
+  border-right-color: #b8a77f;
+  border-bottom-color: #8b7952;
+  border-radius: 8px 8px 12px 12px;
+  box-shadow:
+    inset 2px 2px 0 #ffffff,
+    inset -2px -2px 0 #7a6842;
+  display: flex;
+  flex-direction: column;
+  padding: 7px 9px 7px;
+  box-sizing: border-box;
+  transform: rotateX(180deg) translateZ(1px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.r8-inner-bezel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+  padding: 0 3px;
+}
+
+.r8-crt-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6.5px;
+  color: #4a3e26;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.r8-bezel-power-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.r8-power-bulb {
+  width: 5px;
+  height: 5px;
+  background: #382719;
+  border-radius: 50%;
+  border: 1px solid #1a120b;
+  transition: all 0.3s ease;
+}
+
+.r8-power-bulb.glow {
+  background: #8dffc4;
+  border-color: #ffffff;
+  box-shadow: 0 0 6px #8dffc4, 0 0 12px #8dffc4;
+}
+
+.r8-power-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px;
+  color: #4a3e26;
+  font-weight: 700;
+}
+
+/* CRT Display Frame */
+.r8-crt-frame {
+  flex: 1;
+  background: #0f1412;
+  border: 4px solid #282219;
+  border-top-color: #1a1610;
+  border-left-color: #1a1610;
+  border-radius: 5px;
+  box-shadow:
+    inset 3px 3px 8px rgba(0, 0, 0, 0.95),
+    0 1px 0 rgba(255, 255, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CRT Turn-on animation */
+.r8-crt-frame.crt-turning-on {
+  animation: r8-crt-bloom 0.45s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes r8-crt-bloom {
+  0% {
+    filter: brightness(0.1);
+    transform: scaleY(0.04);
+    opacity: 0.8;
+  }
+  40% {
+    filter: brightness(2.8);
+    transform: scaleY(1.08);
+    opacity: 1;
+  }
+  100% {
+    filter: brightness(1);
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* Scanlines */
+.r8-crt-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.28) 0px,
+    rgba(0, 0, 0, 0.28) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  z-index: 8;
+  opacity: 0.65;
+}
+
+/* Glass Glare */
+.r8-crt-glass-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 30%,
+    transparent 55%
+  );
+  z-index: 9;
+}
+
+/* --- STATE A: SCREEN ASLEEP --- */
+.r8-screen-off-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: radial-gradient(circle at 50% 50%, #161e1b 0%, #0d1210 65%, #060807 100%);
+  text-align: center;
+}
+
+.r8-screen-off-msg {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  color: rgba(141, 255, 196, 0.25);
+  letter-spacing: 1px;
+}
+
+/* Unlock Prompt Box */
+.r8-unlock-prompt {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.r8-unlock-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  color: #ffb347;
+  letter-spacing: 0.5px;
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.r8-unlock-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: #8dffc4;
+  color: #0d1a13;
+  font-family: 'Press Start 2P', monospace, cursive;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: 2px solid #ffffff;
+  border-right-color: #2f855a;
+  border-bottom-color: #2f855a;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6), 0 0 12px rgba(141, 255, 196, 0.4);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.r8-unlock-btn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(141, 255, 196, 0.6);
+}
+
+.r8-unlock-btn:focus-visible {
+  outline: 2px solid #ff5fa2;
+  outline-offset: 2px;
+}
+
+/* --- STATE B: BOOTING & ACTIVE OS --- */
+.r8-screen-active-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #0d1210;
+  color: #8dffc4;
+  font-family: 'JetBrains Mono', monospace;
+  position: relative;
+  z-index: 5;
+}
+
+/* ==========================================================================
+   BIOS BOOT TERMINAL (Name, What I do, What I like, System ready)
+   ========================================================================== */
+.r8-bios-terminal {
+  flex: 1;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 8px;
+  background: #090e0c;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.8px;
+  color: #8dffc4;
+  text-shadow: 0 0 6px rgba(141, 255, 196, 0.55);
+}
+
+.r8-bios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 7.5px;
+  color: #ffb347;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.r8-bios-brand {
+  color: #ffb347;
+}
+
+.r8-bios-mem {
+  color: #8dffc4;
+}
+
+.r8-bios-rule {
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    #234233 0px,
+    #234233 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  margin: 2px 0;
+}
+
+.r8-bios-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.r8-bios-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 7.5px;
+  line-height: 1.4;
+}
+
+.r8-bios-tag {
+  color: #ffb347;
+  font-weight: 700;
+  min-width: 90px;
+  letter-spacing: 0.6px;
+}
+
+.r8-bios-sep {
+  color: #ff5fa2;
+  font-weight: 700;
+}
+
+.r8-bios-val {
+  color: #e2f5ec;
+  font-weight: 500;
+}
+
+.r8-bios-ready-row {
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px dashed #1e3a2c;
+}
+
+.r8-bios-ready-row .r8-bios-tag {
+  color: #8dffc4;
+}
+
+.r8-bios-ready-row .r8-bios-val {
+  color: #8dffc4;
+  font-weight: 700;
+  text-shadow: 0 0 8px #8dffc4;
+  letter-spacing: 1px;
+}
+
+.r8-blinking-cursor {
+  animation: r8-blink 0.8s infinite steps(1);
+  color: #8dffc4;
+  margin-left: 2px;
+}
+
+.r8-bios-skip-hint {
+  margin-top: auto;
+  font-size: 6px;
+  color: rgba(141, 255, 196, 0.45);
+  letter-spacing: 0.6px;
+  text-align: right;
+  padding-top: 4px;
+}
+
+@keyframes r8-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ==========================================================================
+   CLASSIC WINDOWS DESKTOP (Blank desktop with 4 icons on the left)
+   ========================================================================== */
+.r8-win-desktop {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background: #008080; /* Classic Windows Teal Desktop Wallpaper */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* 4 Desktop Program Icons on the left */
+.r8-win-desktop-icons {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 64px);
+  grid-auto-rows: 64px;
+  gap: 12px 14px;
+  z-index: 6;
+}
+
+.r8-win-icon-cell {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 2px;
+  transition: all 0.1s ease;
+  position: relative;
+}
+
+.r8-win-icon-cell:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px dotted rgba(255, 255, 255, 0.6);
+}
+
+.r8-win-icon-cell.selected {
+  background: rgba(0, 0, 128, 0.55);
+  border: 1px dotted #ffffff;
+}
+
+.r8-win-icon-graphic {
+  width: 30px;
+  height: 30px;
+  background: rgba(16, 24, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
+  transition: transform 0.12s ease;
+}
+
+.r8-win-icon-cell:hover .r8-win-icon-graphic {
+  transform: translateY(-1px);
+}
+
+.r8-win-icon-caption {
+  font-family: 'Segoe UI', Tahoma, 'JetBrains Mono', sans-serif;
+  font-size: 7.5px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.15;
+  white-space: nowrap;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.95);
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+
+.r8-win-icon-cell.selected .r8-win-icon-caption {
+  background: #000080; /* Windows Selection Blue */
+}
+
+/* ==========================================================================
+   CLASSIC WINDOWS TASKBAR & START MENU
+   ========================================================================== */
+.r8-win-taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  box-shadow: inset 0 1px 0 #dfdfdf, inset 0 -1px 0 #808080;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.r8-win-start-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 17px;
+  padding: 0 6px;
+  background: #c0c0c0;
+  color: #000000;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  border: 2px outset #ffffff;
+  cursor: pointer;
+  outline: none;
+}
+
+.r8-win-start-button:active,
+.r8-win-start-button.active-pressed {
+  border: 2px inset #ffffff;
+  background: #b5b5b5;
+  padding: 1px 5px 0 7px;
+}
+
+.r8-win-flag-icon {
+  font-size: 9px;
+  line-height: 1;
+}
+
+.r8-win-active-task {
+  flex: 1;
+  max-width: 140px;
+  margin: 0 6px;
+  height: 17px;
+  background: #d6d6d6;
+  border: 2px inset #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-size: 7px;
+  font-weight: 600;
+  color: #111111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.r8-win-tray-box {
+  height: 17px;
+  background: #c0c0c0;
+  border: 2px inset #ffffff;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-size: 7px;
+  color: #222222;
+}
+
+.r8-win-clock {
+  font-size: 6.5px;
+  font-weight: 600;
+}
+
+/* Classic Windows Start Menu Popup */
+.r8-win-start-menu {
+  position: absolute;
+  bottom: 22px;
+  left: 2px;
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.65);
+  display: flex;
+  z-index: 15;
+  min-width: 145px;
+}
+
+.r8-start-menu-sidebar {
+  width: 22px;
+  background: linear-gradient(to top, #000080 0%, #1084d0 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+}
+
+.r8-start-side-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.r8-start-menu-content {
+  flex: 1;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.r8-start-menu-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-size: 7.5px;
+  color: #000000;
+  text-align: left;
+  border-radius: 1px;
+  transition: all 0.1s ease;
+  width: 100%;
+}
+
+.r8-start-menu-row:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.r8-start-menu-divider {
+  height: 1px;
+  background: #808080;
+  border-bottom: 1px solid #ffffff;
+  margin: 3px 2px;
+}
+
+.r8-start-menu-row.sleep-row:hover {
+  background: #881337;
+  color: #ffffff;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .r8-crt-frame.crt-turning-on,
+  .r8-blinking-cursor {
+    animation: none !important;
+  }
+}

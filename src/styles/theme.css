@@ -7,6 +7,7 @@
 :root {
   /* Common Font Families */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Plus Jakarta Sans', var(--font-sans);
   --font-serif: 'EB Garamond', Georgia, serif;
   --font-mono: 'JetBrains Mono', monospace;
 
